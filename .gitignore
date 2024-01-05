@@ -1,0 +1,64 @@
+# Node.js
+node_modules/
+npm-debug.log
+npm-error.log
+.env
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Angular
+ui/dist/
+ui/node_modules/
+ui/tmp/
+ui/out-tsc
+ui/bazel-out
+ui/.angular/
+ui/npm-debug.log
+ui/yarn-error.log
+ui/.browserslistrc
+ui/.editorconfig
+
+ui/.idea/
+ui/.project
+ui/.classpath
+ui/.c9/
+ui/*.launch
+ui/.settings/
+ui/*.sublime-workspace
+
+ui/.vscode/*
+ui/!.vscode/settings.json
+ui/!.vscode/tasks.json
+ui/!.vscode/launch.json
+ui/!.vscode/extensions.json
+ui/.history/*
+
+ui# Miscellaneous
+ui/.angular/cache
+ui.sass-cache/
+ui/connect.lock
+ui/coverage
+ui/libpeerconnection.log
+ui/testem.log
+ui/typings
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.tmp
+*.temp
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log

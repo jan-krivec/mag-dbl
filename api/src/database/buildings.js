@@ -1,0 +1,1 @@
+const graphDBEndpoint = require('../graphdb');

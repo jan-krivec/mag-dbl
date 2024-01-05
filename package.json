@@ -1,0 +1,18 @@
+{
+  "name": "dbl-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Krivec",
+  "license": "ISC",
+  "dependencies": {
+    "@innotrade/enapso-graphdb-client": "^1.9.3",
+    "express": "^4.18.2",
+    "graphdb": "^3.0.1",
+    "nodemon": "^3.0.2"
+  }
+}
