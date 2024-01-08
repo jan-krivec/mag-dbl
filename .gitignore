@@ -45,6 +45,8 @@ ui/libpeerconnection.log
 ui/testem.log
 ui/typings
 
+graphdb-data/
+
 # Editor directories and files
 .vscode/
 .idea/
