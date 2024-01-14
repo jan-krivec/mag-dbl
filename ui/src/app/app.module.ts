@@ -7,6 +7,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { MenubarComponent } from './components/menubar/menubar.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MenubarComponent } from './components/menubar/menubar.component';
     AppRoutingModule,
     HttpClientModule,
     MenubarModule,
-    ButtonModule
+    ButtonModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

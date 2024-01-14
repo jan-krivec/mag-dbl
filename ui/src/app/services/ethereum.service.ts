@@ -7,7 +7,7 @@ declare let window: any;
 })
 export class EthereumService implements OnInit, OnDestroy{
   web3: any;
-  public isConnectedEvent: EventEmitter<void>  = new EventEmitter();
+  public isConnectedEvent: EventEmitter<boolean>  = new EventEmitter();
 
   private _isConnected: boolean = false;
 
@@ -17,6 +17,7 @@ export class EthereumService implements OnInit, OnDestroy{
 
   set isConnected(val: boolean) {
     this._isConnected = val;
+    this.isConnectedEvent.emit(val);
   }
 
   constructor() {
@@ -71,7 +72,6 @@ export class EthereumService implements OnInit, OnDestroy{
 
   handleAccountsChanged(accounts: Array<string>) {
     this.isConnected = accounts?.length > 0
-    this.isConnectedEvent.emit();
   }
 
 }

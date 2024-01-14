@@ -12,11 +12,15 @@ export class MenubarComponent implements OnInit, OnDestroy {
 
   public items: MenuItem[] | undefined;
   private subscription: Subscription | null = null;
+  public isConnected: boolean = false;
 
   constructor(private ethereumService: EthereumService) {
   }
 
   ngOnInit() {
+    this.subscription = this.ethereumService.isConnectedEvent.subscribe((isConnected) => {
+      this.isConnected = isConnected;
+    });
     this.ethereumService.checkIsConencted();
     this.items = [
       {
@@ -141,9 +145,6 @@ export class MenubarComponent implements OnInit, OnDestroy {
         icon: 'pi pi-fw pi-power-off'
       }
     ];
-    this.subscription = this.ethereumService.isConnectedEvent.subscribe(() => {
-      this.isConnected();
-    });
   }
 
   ngOnDestroy() {
@@ -158,10 +159,6 @@ export class MenubarComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  isConnected() {
-    return this.ethereumService.isConnected;
   }
 
 }

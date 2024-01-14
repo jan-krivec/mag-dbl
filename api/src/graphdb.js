@@ -1,4 +1,5 @@
 const { EnapsoGraphDBClient } = require('@innotrade/enapso-graphdb-client');
+const { EnapsoGraphDBAdmin } = require('@innotrade/enapso-graphdb-admin');
 
 let graphDBEndpoint = new EnapsoGraphDBClient.Endpoint({
     baseURL: 'http://localhost:7200',

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { EthereumService } from './services/ethereum.service';
 import {HttpClient} from "@angular/common/http";
+import {MessageService} from "primeng/api";
+import {UploadEvent} from "primeng/fileupload";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,11 @@ import {HttpClient} from "@angular/common/http";
     <button (click)="connectMetaMask()">Connect MetaMask</button>
   `,*/
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MessageService]
 })
 export class AppComponent {
-  constructor(private ethereumService: EthereumService, private http: HttpClient) {}
+  constructor(private ethereumService: EthereumService, private http: HttpClient, private messageService: MessageService) {}
 
   uploadedFiles: File[] = [];
 
@@ -28,5 +31,9 @@ export class AppComponent {
       .subscribe((response) => {
         console.log('response received is ', response);
       })
+  }
+
+  onUpload(event: UploadEvent) {
+    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
   }
 }
