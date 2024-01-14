@@ -15,16 +15,6 @@ export class AppComponent {
 
   uploadedFiles: File[] = [];
 
-  async connectMetaMask() {
-    try {
-      const accounts = await this.ethereumService.requestAccountAccess();
-      console.log('Connected account:', accounts[0]);
-      // Perform other Ethereum operations here
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   fileChange(element: any) {
     this.uploadedFiles = element.target.files;
   }

@@ -5,18 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
 import { MenubarComponent } from './components/menubar/menubar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenubarComponent,
+    MenubarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MenubarModule
+    MenubarModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

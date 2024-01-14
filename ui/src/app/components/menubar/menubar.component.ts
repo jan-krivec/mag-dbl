@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
+import {EthereumService} from "../../services/ethereum.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-menubar',
   templateUrl: './menubar.component.html',
+  styleUrls: ['./menubar.conponent.css']
 })
-export class MenubarComponent implements OnInit {
+export class MenubarComponent implements OnInit, OnDestroy {
 
   public items: MenuItem[] | undefined;
+  private subscription: Subscription | null = null;
 
-  constructor() { }
+  constructor(private ethereumService: EthereumService) {
+  }
 
   ngOnInit() {
+    this.ethereumService.checkIsConencted();
     this.items = [
       {
         label: 'File',
@@ -135,6 +141,27 @@ export class MenubarComponent implements OnInit {
         icon: 'pi pi-fw pi-power-off'
       }
     ];
+    this.subscription = this.ethereumService.isConnectedEvent.subscribe(() => {
+      this.isConnected();
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
+  async connectMetaMask() {
+    try {
+      const accounts = await this.ethereumService.requestAccountAccess();
+      console.log('Connected account:', accounts[0]);
+      // Perform other Ethereum operations here
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  isConnected() {
+    return this.ethereumService.isConnected;
   }
 
 }
