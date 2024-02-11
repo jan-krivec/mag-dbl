@@ -8,11 +8,15 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import {IfcViewerComponent} from "./shared/ifc/ifc-viewer/ifc-viewer.component";
+import {IdentityComponent} from "./components/identity/identity.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenubarComponent
+    MenubarComponent,
+    IfcViewerComponent,
+    IdentityComponent
   ],
   imports: [
     BrowserModule,

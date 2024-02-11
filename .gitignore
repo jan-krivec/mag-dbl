@@ -64,3 +64,25 @@ Thumbs.db
 # Logs
 logs
 *.log
+
+
+## BLOCKCHAIN
+blockchain/node_modules/
+
+# Artifacts
+blockchain/build/
+blockchain/bin/
+blockchain/coverage/
+blockchain/coverage.json
+blockchain/typechain-types/
+blockchain/artifacts/
+blockchain/cache/
+blockchain/docgen/
+blockchain/flat/
+
+# IDEs
+blockchain/.idea/
+blockchain/.vscode/
+
+# NPM
+blockchain/gas-report
