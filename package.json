@@ -10,6 +10,7 @@
   "author": "Jan Krivec",
   "license": "ISC",
   "dependencies": {
+    "@angular/cli": "^15.2.10",
     "@innotrade/enapso-graphdb-admin": "^1.5.4",
     "@innotrade/enapso-graphdb-client": "^1.9.3",
     "bootstrap": "^5.3.2",

@@ -1,0 +1,10 @@
+<mat-toolbar style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
+  <span>DBL</span>
+  <div style="display: flex; gap: 10px;">
+    <!-- Use gap property for spacing -->
+    <button mat-button [routerLink]="'identity'" style="margin-left: 10px">Identity</button>
+
+    <button mat-button [routerLink]="'factory'" style="margin-left: 10px">Factory</button>
+    <button mat-raised-button color="primary" *ngIf="!this.isConnected" (click)="this.connectMetaMask()">Connect wallet</button>
+  </div>
+</mat-toolbar>

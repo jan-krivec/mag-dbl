@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "OIDImports",
+  "sourceName": "src/contracts/trex/_testContracts/OIDImports.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212200bf21f5ff1c4758256d41bf0ddc3af2f7a233cd011f24e2119c2202703ecaebc64736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212200bf21f5ff1c4758256d41bf0ddc3af2f7a233cd011f24e2119c2202703ecaebc64736f6c63430008110033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

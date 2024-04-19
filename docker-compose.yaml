@@ -1,12 +1,5 @@
 version: "3.9"
 services:
-  ganache:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: ganache
-    ports:
-      - 8545:8545
   
   blockscanner:
     image: alethio/ethereum-lite-explorer

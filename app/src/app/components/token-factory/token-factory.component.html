@@ -1,0 +1,23 @@
+<div class="grid justify-content-center" style="margin-top: 60px">
+  <div class="col-3">
+    <form (ngSubmit)="onSubmit()">
+      <div class="p-card formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label for="name">Name</label>
+          <input [(ngModel)]="tokenFactory.name" name="name" type="text" id="name" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="symbol">Symbol</label>
+          <input [(ngModel)]="tokenFactory.symbol" name="symbol" type="text" id="symbol" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="decimals">Decimals</label>
+          <input [(ngModel)]="tokenFactory.decimals" name="decimals" type="number" id="decimals" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12">
+          <button type="submit" class="p-button-success">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
