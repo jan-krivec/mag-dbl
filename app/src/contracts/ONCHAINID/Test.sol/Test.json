@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Test",
+  "sourceName": "contracts/ONCHAINID/Test.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220361adf716972778dee64fe765142918ac712a0c31f12baae5c2a833345c1256f64736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220361adf716972778dee64fe765142918ac712a0c31f12baae5c2a833345c1256f64736f6c63430008110033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

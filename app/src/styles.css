@@ -22,3 +22,122 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.card-content {
+  display: flex;           /* Ensures the use of Flexbox */
+  flex-direction: column;  /* Stacks the children vertically */
+  align-items: center;     /* Centers children vertically */
+  justify-content: center; /* Centers children horizontally */
+  margin-top: 10px;        /* Additional styling */
+}
+
+.id-card {
+  max-height: 70vh;
+}
+
+
+.full-width {
+  width: 90%;
+  margin-left: 5%;
+}
+
+mat-form-field {
+  width: 100%; /* Set width to 100% of the parent container */
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* This will center the fields horizontally */
+  justify-content: center;   /* This will center the fields vertically */
+  height: 70%;
+}
+
+mat-card-subtitle {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 0;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.table-container {
+  border: 1px solid #ccc; /* Border color and width */
+  margin: 10px 0; /* Adjust as needed */
+  padding: 10px; /* Adjust as needed */
+  max-height: 300px; /* Adjust as needed */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+  width: 90%;
+}
+
+table {
+  width: 100%;
+}
+
+mat-card-subtitle {
+  margin: 1em 0;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.vertical-toggle-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-tab {
+  margin-top: 10px;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 8px;
+  word-wrap: break-word; /* Add this line to enable word wrapping */
+  max-width: 80%;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.factory-card {
+  max-height: 70vh;
+  width: 40vw;
+}

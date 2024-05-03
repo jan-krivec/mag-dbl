@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutAlign="center start" style="height: calc(100vh - 64px);">
+  <!-- Subtract the height of the toolbar (e.g., 64px) from the 100vh if there's a fixed toolbar at the top -->
+
+  <div fxLayout="row" style="width: 80vw;" fxLayout.xs="column" fxLayoutAlign="start center" fxLayoutGap="5%">
+
+
+    <div fxFlex="0">
+      <mat-chip-listbox [(ngModel)]="selectedView" class="mat-mdc-chip-set-stacked" aria-label="Fish selection">
+        <mat-chip-option *ngFor="let view of views" [value]="view" (click)="this.changeView(view)">{{view}}</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+
+    <div fxFlex></div>
+
+
+    <div fxFlex="0" style="width: 40%;">
+      <app-token-factory *ngIf="this.selectedView === 'factory'"></app-token-factory>
+      <app-agent *ngIf="this.selectedView === 'agents'"></app-agent>
+    </div>
+
+    <div fxFlex></div>
+  </div>
+
+</div>

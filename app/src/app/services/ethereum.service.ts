@@ -1,10 +1,10 @@
 import {EventEmitter, Injectable, OnDestroy, OnInit} from '@angular/core';
-import {ethers, Signer} from 'ethers';
-import ONCHAINID from "@onchain-id/solidity";
+import {ethers} from 'ethers';
 import {Identity, IdentitySDK} from "@onchain-id/identity-sdk";
-import factoryJson from '../../artifacts/src/contracts/onchainid/factory/IdFactory.sol/IdFactory.json';
+import factoryJson from '../../contracts/ONCHAINID/factory/IdFactory.sol/IdFactory.json';
+import trexFactoryJson from "../../contracts/TREX/factory/TREXFactory.sol/TREXFactory.json";
 import {environment} from "../../environments/environment";
-import {KeyDTO} from "../shared/identity.model";
+import {ClaimDTO, KeyDTO} from "../shared/identity.model";
 import {IdentityComponent} from "../components/identity/identity.component";
 import {ErrorHandlerService} from "../shared/error/error-handler.service";
 const jsrsasign = require('jsrsasign');
@@ -15,9 +15,10 @@ declare let window: any;
 @Injectable({
   providedIn: 'root'
 })
-export class EthereumService implements OnDestroy {
+export class EthereumService implements OnInit, OnDestroy {
   web3: any;
   factory: any;
+  trexFactory: any;
   private _provider: ethers.providers.Web3Provider | undefined;
   identity: Identity | null = null;
 
@@ -42,16 +43,17 @@ export class EthereumService implements OnDestroy {
     }
     this._account = val;
     this.setIdentity();
-
   }
 
   async setIdentity() {
     if (this.isConnected) {
       const provider = this.provider;
-      this.factory = new ethers.Contract(environment.idFactoryAdr, factoryJson.abi, this.provider.getSigner());
+      // this.factory = new ethers.Contract(environment.idFactoryAdr, factoryJson.abi, this.provider.getSigner());
 
-      const idAccount = await this.factory.getIdentity(this.account);
-      this.identity = await Identity.at(idAccount, provider.getSigner());
+      // const idAccount = await this.factory.getIdentity(this.account);
+      // this.identity = await Identity.at(idAccount, provider.getSigner());
+      this.trexFactory = new ethers.Contract('0x09A117c59e2c56D39B11985a9bb82707cda46Ab2', trexFactoryJson.abi, this.provider.getSigner());
+      console.log(this.trexFactory);
     }
   }
 
@@ -78,6 +80,9 @@ export class EthereumService implements OnDestroy {
   }
 
   constructor(private errorHandlerService: ErrorHandlerService) {
+  }
+
+  ngOnInit() {
     if (window.ethereum !== 'undefined') {
       window.ethereum.addListener('accountsChanged', this.handleAccountsChanged);
     }
@@ -202,7 +207,7 @@ export class EthereumService implements OnDestroy {
     }
   }
 
-  async addClaim(onchainId: string, ciOnchainId: string, topic: number, data: string) {
+  async addClaim(onchainId: string, topic: number, data: string) {
     if (this.provider != null) {
       try {
         const signer = this.provider.getSigner();
@@ -213,7 +218,7 @@ export class EthereumService implements OnDestroy {
         const claim = new IdentitySDK.Claim({
           address: onchainId,
           data: IdentitySDK.utils.toHex(data),
-          issuer: ciOnchainId,
+          issuer: environment.claimIssuer1OID,
           emissionDate: new Date(),
           scheme: 1,
           topic: topic,
@@ -235,12 +240,14 @@ export class EthereumService implements OnDestroy {
     }
   }
 
-  async getClaimIdsByTopic(onchainId: number, topic: number) {
-    const identity = new IdentitySDK.Identity('0xadD92F8Ef0729E969c5a98Ea5740c9b644B362e3', this.provider.getSigner());
+  async getClaimIdsByTopic(onchainId: string, topic: number) {
+    const identity = new IdentitySDK.Identity(onchainId, this.provider.getSigner());
 
-    const claims = await identity.getClaimsByTopic(109741294);
+    const claims = await identity.getClaimsByTopic(topic ? topic : 0);
 
-    console.log(claims);
+    return claims.map(claim => {
+      return new ClaimDTO(claim.id, claim.address, claim.topic, claim.issuer, claim.data, claim.signature, claim.uri);
+    });
   }
 
 

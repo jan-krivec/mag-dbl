@@ -5,6 +5,7 @@ import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from "@angular/platform-browser";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClaimDTO, KeyDTO} from 'src/app/shared/identity.model';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 const METAMASK_ICON =
   `
@@ -14,16 +15,25 @@ const METAMASK_ICON =
 @Component({
   selector: 'app-identity',
   templateUrl: './identity.component.html',
-  styleUrls: ['identity.component.css']
+  styleUrls: ['identity.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class IdentityComponent{
   isEditKey = false;
   isEditClaim = false;
-  claim: ClaimDTO;
-  key: KeyDTO;
   keyPurposes = ["MANAGEMENT", "ACTION", "CLAIM",]
-  dataSource: KeyDTO[];
-  displayedColumns: string[] = ['key', 'keyType', 'purposes'];
+  keyDTOS: KeyDTO[];
+  claimDTOS: ClaimDTO[];
+  expandedElement: ClaimDTO | null;
+  displayedColumnsKey: string[] = ['key', 'keyType', 'purposes'];
+  displayedColumnsClaim: string[] = ['id', 'topic', 'data'];
+  displayedColumnsClaimExpanded: string[] = [... this.displayedColumnsClaim, 'expand'];
 
 
   viewKeyForm = new FormGroup({
@@ -45,14 +55,12 @@ export class IdentityComponent{
   addClaimForm = new FormGroup({
     onchainId: new FormControl('', [Validators.required]),
     topic: new FormControl(null, [Validators.required]),
-    ciOnchainId: new FormControl('', [Validators.required]),
     data: new FormControl('', [Validators.required])
   })
 
 
   constructor(private identityService: EthereumService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.identityService.checkIsConected();
-    this.key = new KeyDTO();
     iconRegistry.addSvgIconLiteral('metamask', sanitizer.bypassSecurityTrustHtml(METAMASK_ICON));
   }
 
@@ -67,22 +75,23 @@ export class IdentityComponent{
     await this.identityService.addKey(this.addKeyForm.get('onchainId').value, this.addKeyForm.get('ciaddress').value, this.addKeyForm.get('keyType').value);
   }
 
-  useOwnAddress() {
+  useOwnAddress(formGroup: FormGroup) {
     if (this.identityService.isConnected) {
-      this.viewKeyForm.get('onchainId').patchValue(this.identityService.onchainId);
+      formGroup.get('onchainId').patchValue(this.identityService.onchainId);
     }
   }
 
   async viewKeys() {
     const keys: KeyDTO[] = await this.identityService.getKeyByPurpose(this.viewKeyForm.get('onchainId').value, this.viewKeyForm.get('keyType').value);
-    this.dataSource = keys;
+    this.keyDTOS = keys;
   }
 
   async addClaim() {
-    await this.identityService.addClaim(this.addClaimForm.get('onchainId').value, this.addClaimForm.get('ciOnchainId').value, this.addClaimForm.get('topic').value, this.addClaimForm.get('data').value);
+    await this.identityService.addClaim(this.addClaimForm.get('onchainId').value, this.addClaimForm.get('topic').value, this.addClaimForm.get('data').value);
   }
 
   async viewClaims() {
-
+    const claims: ClaimDTO[] = await this.identityService.getClaimIdsByTopic(this.viewClaimForm.get('onchainId').value, this.viewClaimForm.get('topic').value);
+    this.claimDTOS = claims;
   }
 }

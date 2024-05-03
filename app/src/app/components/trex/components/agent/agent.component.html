@@ -1,0 +1,38 @@
+<mat-card class="factory-card">
+  <mat-card-header>
+    <mat-card-title>Agents</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="car-tab">
+
+      <form class="center-content" [formGroup]="editAgentForm">
+
+        <div style="width: 90%">
+          <div>
+            <mat-form-field fxFlex="100%">
+              <mat-label>Agent Address</mat-label>
+              <input matInput type="text" formControlName="agentAddress">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field fxFlex="100%">
+              <mat-label>Agent Type</mat-label>
+              <mat-select formControlName="agentType">
+                <mat-option *ngFor="let type of agentTypes" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div style="width: 90%" fxLayout="row" fxLayoutAlign="space-between center">
+          <button type="submit" mat-raised-button fxFlex="48%">Add Agent</button>
+          <button type="submit" mat-raised-button fxFlex="48%">Delete Agent</button>
+        </div>
+      </form>
+
+      <mat-divider style="margin: 10px 0"></mat-divider>
+
+    </div>
+  </mat-card-content>
+</mat-card>

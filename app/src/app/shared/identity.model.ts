@@ -1,13 +1,21 @@
-import {IdentitySDK} from "@onchain-id/identity-sdk";
-
 export class ClaimDTO {
-  onchainId: string | undefined | null = null;
-  claimType: number | undefined | null = null;
+
+  constructor(public id?: string,
+              public onchainId?: string,
+              public topic?: number,
+              public issuer?: string,
+              public data?: string,
+              public signature?: string,
+              public uri?: string) {
+
+  }
 }
 
 export class KeyDTO {
 
-  constructor(public key?: string, public type?: string, public purpose?: string[]) {
+  constructor(public key?: string,
+              public type?: string,
+              public purpose?: string[]) {
   }
 
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {TokenFactoryComponent} from "./components/token-factory/token-factory.component";
+import {TrexComponent} from "./components/trex/trex.component";
 import {MenubarComponent} from "./components/menubar/menubar.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -27,14 +27,28 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatDialogModule} from "@angular/material/dialog";
 import {ErrorDialogComponent} from "./shared/error/error-dialog.component";
 import {ErrorHandlerService} from "./shared/error/error-handler.service";
+import {MatListModule} from '@angular/material/list';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatChipsModule} from '@angular/material/chips';
+import {TokenFactoryComponent} from "./components/trex/components/tokem-factory/token-factory.component";
+import {AgentComponent} from "./components/trex/components/agent/agent.component";
+import {IdentityRegistryComponent} from "./components/trex/components/identity-registry/identity-registry.component";
+import {
+  ClaimTopicsRegistryComponent
+} from "./components/trex/components/claim-topics-registry/claim-topics-registry.component";
+import {TokenFactoryService} from "./services/token-factory.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TokenFactoryComponent,
+    TrexComponent,
     MenubarComponent,
     IdentityComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    TokenFactoryComponent,
+    AgentComponent,
+    IdentityRegistryComponent,
+    ClaimTopicsRegistryComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +71,12 @@ import {ErrorHandlerService} from "./shared/error/error-handler.service";
     MatIconModule,
     MatTableModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule,
+    MatButtonToggleModule,
+    MatChipsModule
   ],
-  providers: [EthereumService, ErrorHandlerService],
+  providers: [EthereumService, ErrorHandlerService, TokenFactoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

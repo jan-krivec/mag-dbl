@@ -19,7 +19,7 @@
                   <mat-form-field fxFlex="100%">
                     <mat-label>Wallet Address</mat-label>
                     <input matInput type="text" formControlName="onchainId">
-                    <button type="button" mat-icon-button matSuffix (click)="this.useOwnAddress()"
+                    <button type="button" mat-icon-button matSuffix (click)="this.useOwnAddress(this.viewKeyForm)"
                             [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="isEditKey">
                       <mat-icon svgIcon="metamask" aria-hidden="false"></mat-icon>
@@ -44,7 +44,7 @@
               <div class="center-content">
 
                 <section class="table-container mat-elevation-z8" tabindex="0">
-                  <table mat-table [dataSource]="dataSource">
+                  <table mat-table [dataSource]="keyDTOS">
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="key">
@@ -64,8 +64,8 @@
                       <td mat-cell *matCellDef="let element"> {{element.purpose.join(', ')}} </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsKey; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsKey;"></tr>
                   </table>
                 </section>
 
@@ -128,10 +128,6 @@
             </form>
           </div>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
     </div>
 
@@ -153,7 +149,7 @@
                   <mat-form-field fxFlex="100%">
                     <mat-label>Wallet Address</mat-label>
                     <input matInput type="text" formControlName="onchainId">
-                    <button type="button" mat-icon-button matSuffix (click)="this.useOwnAddress()"
+                    <button type="button" mat-icon-button matSuffix (click)="this.useOwnAddress(this.viewClaimForm)"
                             [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="isEditClaim">
                       <mat-icon svgIcon="metamask" aria-hidden="false"></mat-icon>
@@ -174,28 +170,61 @@
               <div class="center-content">
 
                 <section class="table-container mat-elevation-z8" tabindex="0">
-                  <table mat-table [dataSource]="dataSource">
+                  <table mat-table [dataSource]="claimDTOS" multiTemplateDataRows>
 
                     <!-- Name Column -->
-                    <ng-container matColumnDef="key">
-                      <th mat-header-cell *matHeaderCellDef> Key</th>
-                      <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+                    <ng-container matColumnDef="id">
+                      <th mat-header-cell *matHeaderCellDef> Id</th>
+                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     </ng-container>
 
                     <!-- Name Column -->
-                    <ng-container matColumnDef="keyType">
-                      <th mat-header-cell *matHeaderCellDef> Key Type</th>
-                      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                    <ng-container matColumnDef="topic">
+                      <th mat-header-cell *matHeaderCellDef> Topic</th>
+                      <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
-                    <ng-container matColumnDef="purposes">
-                      <th mat-header-cell *matHeaderCellDef> Purposes</th>
-                      <td mat-cell *matCellDef="let element"> {{element.purpose.join(', ')}} </td>
+                    <ng-container matColumnDef="data">
+                      <th mat-header-cell *matHeaderCellDef> Data</th>
+                      <td mat-cell *matCellDef="let element"> {{element.data}} </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <ng-container matColumnDef="expand">
+                      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                          <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                          <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    !-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                    <ng-container matColumnDef="expandedDetail">
+                      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsClaim.length">
+                        <div class="example-element-detail"
+                             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                          <div class="example-element-description">
+                            ONCHAINID: {{element.onchainId}}
+                          </div>
+                          <div class="example-element-description">
+                            Issuer: {{element.issuer}}
+                          </div>
+                          <div class="example-element-description">
+                            Signature: {{element.signature}}
+                          </div>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsClaim; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumnsClaimExpanded;"
+                        class="example-element-row"
+                        [class.example-expanded-row]="expandedElement === element"
+                        (click)="expandedElement = expandedElement === element ? null : element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
                   </table>
                 </section>
 
@@ -215,7 +244,7 @@
                 <mat-form-field fxFlex="100%">
                   <mat-label>Wallet Address</mat-label>
                   <input matInput type="text" formControlName="onchainId">
-                  <button type="button" mat-icon-button matSuffix (click)="this.useOwnAddress()"
+                  <button type="button" mat-icon-button matSuffix
                           [attr.aria-label]="'Hide password'"
                           [attr.aria-pressed]="isEditClaim">
                     <mat-icon svgIcon="metamask" aria-hidden="false"></mat-icon>
@@ -230,11 +259,6 @@
               </div>
 
               <div style="width: 90%">
-
-                <mat-form-field>
-                  <mat-label>Claim Issuer ONCHAINID</mat-label>
-                  <input matInput type="text" formControlName="ciOnchainId">
-                </mat-form-field>
 
                 <mat-form-field>
                   <mat-label>Claim Data</mat-label>
@@ -273,10 +297,6 @@
             </form>
           </div>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div>
