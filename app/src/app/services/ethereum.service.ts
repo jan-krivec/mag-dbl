@@ -7,6 +7,7 @@ import {environment} from "../../environments/environment";
 import {ClaimDTO, KeyDTO} from "../shared/identity.model";
 import {IdentityComponent} from "../components/identity/identity.component";
 import {ErrorHandlerService} from "../shared/error/error-handler.service";
+import {Subject} from "rxjs";
 const jsrsasign = require('jsrsasign');
 
 
@@ -18,7 +19,7 @@ declare let window: any;
 export class EthereumService implements OnInit, OnDestroy {
   web3: any;
   factory: any;
-  trexFactory: any;
+
   private _provider: ethers.providers.Web3Provider | undefined;
   identity: Identity | null = null;
 
@@ -52,8 +53,7 @@ export class EthereumService implements OnInit, OnDestroy {
 
       // const idAccount = await this.factory.getIdentity(this.account);
       // this.identity = await Identity.at(idAccount, provider.getSigner());
-      this.trexFactory = new ethers.Contract('0x09A117c59e2c56D39B11985a9bb82707cda46Ab2', trexFactoryJson.abi, this.provider.getSigner());
-      console.log(this.trexFactory);
+
     }
   }
 
@@ -65,7 +65,8 @@ export class EthereumService implements OnInit, OnDestroy {
   }
 
   //
-  public isConnectedEvent: EventEmitter<boolean> = new EventEmitter();
+  public isConnectedEvent = new Subject<boolean>();
+  event$ = this.isConnectedEvent.asObservable();
 
   private _isConnected: boolean = false;
 
@@ -76,7 +77,7 @@ export class EthereumService implements OnInit, OnDestroy {
   //
   set isConnected(val: boolean) {
     this._isConnected = val;
-    this.isConnectedEvent.emit(val);
+    this.isConnectedEvent.next(val);
   }
 
   constructor(private errorHandlerService: ErrorHandlerService) {

@@ -305,8 +305,7 @@ contract Token is IToken, AgentRoleUpgradeable, TokenStorage {
         if (_onchainID.keyHasPurpose(_key, 1)) {
             uint256 investorTokens = balanceOf(_lostWallet);
             uint256 frozenTokens = _frozenTokens[_lostWallet];
-            _tokenIdentityRegistry.registerIdentity(_newWallet, _onchainID, _tokenIdentityRegistry.investorCountry
-                (_lostWallet));
+            _tokenIdentityRegistry.registerIdentity(_newWallet, _onchainID);
             forcedTransfer(_lostWallet, _newWallet, investorTokens);
             if (frozenTokens > 0) {
                 freezePartialTokens(_newWallet, frozenTokens);

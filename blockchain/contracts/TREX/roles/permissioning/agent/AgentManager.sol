@@ -391,7 +391,6 @@ contract AgentManager is AgentRoles {
     function callRegisterIdentity(
         address _userAddress,
         IIdentity _onchainID,
-        uint16 _country,
         IIdentity _managerOnchainID
     ) external {
         require(
@@ -399,7 +398,7 @@ contract AgentManager is AgentRoles {
             _managerOnchainID.keyHasPurpose(keccak256(abi.encode(msg.sender)), 2)
             , "Role: Sender is NOT WhiteList Manager"
         );
-        token.identityRegistry().registerIdentity(_userAddress, _onchainID, _country);
+        token.identityRegistry().registerIdentity(_userAddress, _onchainID);
     }
 
     /**
@@ -421,27 +420,6 @@ contract AgentManager is AgentRoles {
             , "Role: Sender is NOT WhiteList Manager"
         );
         token.identityRegistry().updateIdentity(_userAddress, _identity);
-    }
-
-    /**
-     *  @dev calls the `updateCountry` function on the Identity Registry contract
-     *  AgentManager has to be set as agent on the Identity Registry smart contract to process this function
-     *  See {IIdentityRegistry-updateCountry}.
-     *  Requires that `_onchainID` is set as WhiteListManager on the AgentManager contract
-     *  Requires that msg.sender is a MANAGEMENT KEY on `_onchainID`
-     *  @param _onchainID the _onchainID contract of the caller, e.g. "i call this function and i am Bob"
-     */
-    function callUpdateCountry(
-        address _userAddress,
-        uint16 _country,
-        IIdentity _onchainID
-    ) external {
-        require(
-            isWhiteListManager(address(_onchainID)) &&
-            _onchainID.keyHasPurpose(keccak256(abi.encode(msg.sender)), 2)
-            , "Role: Sender is NOT WhiteList Manager"
-        );
-        token.identityRegistry().updateCountry(_userAddress, _country);
     }
 
     /**

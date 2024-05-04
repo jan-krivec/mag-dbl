@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-identity-registry',
+  selector: 'app-claim-topics-registry',
   templateUrl: './claim-topics-registry.component.html'
 })
 export class ClaimTopicsRegistryComponent {

@@ -93,14 +93,6 @@ interface IIdentityRegistryStorage {
     event IdentityModified(IIdentity indexed oldIdentity, IIdentity indexed newIdentity);
 
     /**
-     *  this event is emitted when an Identity's country has been updated
-     *  the event is emitted by the 'updateCountry' function
-     *  `investorAddress` is the address on which the country has been updated
-     *  `country` is the numeric code (ISO 3166-1) of the new country
-     */
-    event CountryModified(address indexed investorAddress, uint16 indexed country);
-
-    /**
      *  this event is emitted when an Identity Registry is bound to the storage contract
      *  the event is emitted by the 'addIdentityRegistry' function
      *  `identityRegistry` is the address of the identity registry added
@@ -122,13 +114,11 @@ interface IIdentityRegistryStorage {
      *  This function can only be called by an address set as agent of the smart contract
      *  @param _userAddress The address of the user
      *  @param _identity The address of the user's identity contract
-     *  @param _country The country of the investor
      *  emits `IdentityStored` event
      */
     function addIdentityToStorage(
         address _userAddress,
-        IIdentity _identity,
-        uint16 _country
+        IIdentity _identity
     ) external;
 
     /**
@@ -139,16 +129,6 @@ interface IIdentityRegistryStorage {
      *  emits `IdentityUnstored` event
      */
     function removeIdentityFromStorage(address _userAddress) external;
-
-    /**
-     *  @dev Updates the country corresponding to a user address.
-     *  Requires that the user should have an identity contract already deployed that will be replaced.
-     *  This function can only be called by an address set as agent of the smart contract
-     *  @param _userAddress The address of the user
-     *  @param _country The new country of the user
-     *  emits `CountryModified` event
-     */
-    function modifyStoredInvestorCountry(address _userAddress, uint16 _country) external;
 
     /**
      *  @dev Updates an identity contract corresponding to a user address.
@@ -188,10 +168,4 @@ interface IIdentityRegistryStorage {
      *  @param _userAddress The wallet of the investor
      */
     function storedIdentity(address _userAddress) external view returns (IIdentity);
-
-    /**
-     *  @dev Returns the country code of an investor.
-     *  @param _userAddress The wallet of the investor
-     */
-    function storedInvestorCountry(address _userAddress) external view returns (uint16);
 }

@@ -108,11 +108,10 @@ contract IdentityRegistry is IIdentityRegistry, AgentRoleUpgradeable, IRStorage 
      */
     function batchRegisterIdentity(
         address[] calldata _userAddresses,
-        IIdentity[] calldata _identities,
-        uint16[] calldata _countries
+        IIdentity[] calldata _identities
     ) external override {
         for (uint256 i = 0; i < _userAddresses.length; i++) {
-            registerIdentity(_userAddresses[i], _identities[i], _countries[i]);
+            registerIdentity(_userAddresses[i], _identities[i]);
         }
     }
 
@@ -123,14 +122,6 @@ contract IdentityRegistry is IIdentityRegistry, AgentRoleUpgradeable, IRStorage 
         IIdentity oldIdentity = identity(_userAddress);
         _tokenIdentityStorage.modifyStoredIdentity(_userAddress, _identity);
         emit IdentityUpdated(oldIdentity, _identity);
-    }
-
-    /**
-     *  @dev See {IIdentityRegistry-updateCountry}.
-     */
-    function updateCountry(address _userAddress, uint16 _country) external override onlyAgent {
-        _tokenIdentityStorage.modifyStoredInvestorCountry(_userAddress, _country);
-        emit CountryUpdated(_userAddress, _country);
     }
 
     /**
@@ -221,14 +212,6 @@ contract IdentityRegistry is IIdentityRegistry, AgentRoleUpgradeable, IRStorage 
         }
         return true;
     }
-
-    /**
-     *  @dev See {IIdentityRegistry-investorCountry}.
-     */
-    function investorCountry(address _userAddress) external view override returns (uint16) {
-        return _tokenIdentityStorage.storedInvestorCountry(_userAddress);
-    }
-
     /**
      *  @dev See {IIdentityRegistry-issuersRegistry}.
      */
@@ -265,10 +248,9 @@ contract IdentityRegistry is IIdentityRegistry, AgentRoleUpgradeable, IRStorage 
      */
     function registerIdentity(
         address _userAddress,
-        IIdentity _identity,
-        uint16 _country
+        IIdentity _identity
     ) public override onlyAgent {
-        _tokenIdentityStorage.addIdentityToStorage(_userAddress, _identity, _country);
+        _tokenIdentityStorage.addIdentityToStorage(_userAddress, _identity);
         emit IdentityRegistered(_userAddress, _identity);
     }
 

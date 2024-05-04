@@ -9,8 +9,8 @@ import {TokenFactoryService} from "../../services/token-factory.service";
 })
 export class TrexComponent {
   public tokenFactory: TokenFactoryDTO;
-  public selectedView: string = 'factory';
-  public views: string[] = ['factory', 'agents'];
+  public selectedView: string = 'Claim Topics Registry';
+  public views: string[] = ['Factory', 'Agents', 'Identity Registry', 'Claim Topics Registry'];
 
   constructor(private tokenFactoryService: TokenFactoryService) { };
 

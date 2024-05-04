@@ -76,7 +76,7 @@
 
           </div>
           <div *ngIf="isEditKey">
-            <mat-card-subtitle>Add Key</mat-card-subtitle>
+            <mat-card-subtitle class="subtitle">Add Key</mat-card-subtitle>
             <form class="center-content" [formGroup]="addKeyForm" (ngSubmit)="this.addKey()">
               <div style="width: 90%">
                 <mat-form-field>
@@ -100,13 +100,13 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <button type="submit" mat-raised-button style="width: 90%">Add Key</button>
+              <button type="submit" mat-raised-button>Add Key</button>
             </form>
 
-            <mat-divider style="margin: 10px 0"></mat-divider>
+            <mat-divider style="margin: 3% 0"></mat-divider>
 
             <form>
-              <mat-card-subtitle>Delete Key</mat-card-subtitle>
+              <mat-card-subtitle class="subtitle">Delete Key</mat-card-subtitle>
               <div class="center-content">
                 <div style="width: 90%">
                   <mat-form-field>
@@ -162,7 +162,7 @@
                   </mat-form-field>
 
                 </div>
-                <button type="submit" mat-raised-button style="align-self: flex-start; margin-left: 5%">View Claims
+                <button type="submit" mat-raised-button>View Claims
                 </button>
 
               </form>
@@ -235,7 +235,7 @@
 
           </div>
           <div *ngIf="isEditClaim">
-            <mat-card-subtitle>Add Claim</mat-card-subtitle>
+            <mat-card-subtitle class="subtitle">Add Claim</mat-card-subtitle>
 
 
             <form class="center-content" [formGroup]="addClaimForm" (ngSubmit)="this.addClaim()">
@@ -268,14 +268,14 @@
               </div>
 
 
-              <button type="submit" mat-raised-button style="width: 90%">Add Claim</button>
+              <button type="submit" mat-raised-button>Add Claim</button>
 
             </form>
 
-            <mat-divider style="margin: 10px 0"></mat-divider>
+            <mat-divider style="margin: 3% 0"></mat-divider>
 
             <form>
-              <mat-card-subtitle>Delete Key</mat-card-subtitle>
+              <mat-card-subtitle class="subtitle">Delete Key</mat-card-subtitle>
               <div class="center-content">
                 <div style="width: 90%">
                   <mat-form-field>

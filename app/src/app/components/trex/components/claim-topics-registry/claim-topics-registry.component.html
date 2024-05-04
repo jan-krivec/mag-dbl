@@ -1,50 +1,53 @@
-<mat-card class="factory-card">
-  <mat-card-header>
-    <mat-card-title>T-REX Factory</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="car-tab">
-      <mat-card-subtitle>Add Token</mat-card-subtitle>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="20px">
 
+    <mat-card fxFlex="20%" class="factory-card">
+      <mat-card-header>
+        <mat-card-title>Claim Topics</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
 
-      <form class="center-content">
+    <mat-card fxFlex="45%" class="factory-card">
+      <mat-card-header>
+        <mat-card-title>Claim Topics Registry</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="car-tab">
+          <mat-card-subtitle class="subtitle">Add Claim Topic</mat-card-subtitle>
 
-        <div style="width: 90%">
-          <mat-form-field fxFlex="100%">
-            <mat-label>Owner Address</mat-label>
-            <input matInput type="text">
-          </mat-form-field>
+          <form class="center-content">
+
+            <div style="width: 90%">
+              <mat-form-field fxFlex="100%">
+                <mat-label>Claim Topic</mat-label>
+                <input matInput type="number">
+              </mat-form-field>
+            </div>
+
+            <button type="submit" mat-raised-button>Add Claim Topic</button>
+
+          </form>
+
+          <mat-divider style="margin: 3% 0"></mat-divider>
+
+          <mat-card-subtitle class="subtitle">Delete Claim Topic</mat-card-subtitle>
+
+          <form class="center-content">
+
+            <div style="width: 90%">
+              <mat-form-field fxFlex="100%">
+                <mat-label>Claim Topic</mat-label>
+                <input matInput type="number">
+              </mat-form-field>
+            </div>
+
+            <button type="submit" mat-raised-button>Delete Claim Topic</button>
+
+          </form>
+
         </div>
+      </mat-card-content>
+    </mat-card>
 
-        <div style="width: 90%" fxLayoutGap="5%">
-          <mat-form-field fxFlex="100%">
-            <mat-label>Name</mat-label>
-            <input matInput type="text">
-          </mat-form-field>
-
-          <mat-form-field fxFlex="100%">
-            <mat-label>Symbol</mat-label>
-            <input matInput type="text">
-          </mat-form-field>
-        </div>
-
-
-        <div style="width: 90%">
-
-          <mat-form-field>
-            <mat-label>Claim Data</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-
-        </div>
-
-
-        <button type="submit" mat-raised-button style="width: 90%">Add Claim</button>
-
-      </form>
-
-      <mat-divider style="margin: 10px 0"></mat-divider>
-
-    </div>
-  </mat-card-content>
-</mat-card>
+</div>

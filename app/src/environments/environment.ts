@@ -6,5 +6,9 @@ export const environment = {
   claimIssuer1OID: '0x139AD723E6B3bd143E9C81DeF3F3cb2f150a847e',
   claimIssuer2OID: '0xd76Acd7735e914d66353aC886C106A7103eD9633',
   claimIssuer3OID: '0x02Ba794B5e551F5f6dc20679405335b73d25eb72',
-  factoryAdr: ''
+  trexFactoryAdr: '0x09A117c59e2c56D39B11985a9bb82707cda46Ab2',
+  identityRegAdr: '',
+  claimTopicsRegAdr: '',
+  trustedIssuersRegAdr: '',
+  modularComplianceAdr: ''
 };

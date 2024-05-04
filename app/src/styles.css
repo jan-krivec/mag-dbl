@@ -141,3 +141,16 @@ tr.example-element-row:not(.example-expanded-row):active {
   max-height: 70vh;
   width: 40vw;
 }
+
+button[type="submit"] {
+  align-self: flex-end; /* This will align the button to the end of its container */
+  margin-right: 5%;
+}
+
+.router-outlet-container {
+  padding-top: 64px;  /* Adjust this value based on the actual height of your toolbar */
+}
+
+.mat-mdc-card-subtitle.subtitle {
+  margin-bottom: 2%;
+}

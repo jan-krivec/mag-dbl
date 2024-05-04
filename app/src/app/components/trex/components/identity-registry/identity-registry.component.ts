@@ -7,7 +7,18 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class IdentityRegistryComponent {
 
-  agentTypes = ["Identity", "Token", "DBL",]
+  checkGroup = new FormGroup({
+    check: new FormControl('', [Validators.required])
+  })
+
+  getGroup = new FormGroup({
+    get: new FormControl('', [Validators.required])
+  })
+
+  isVerifiedGroup = new FormGroup({
+    isVerified: new FormControl('', [Validators.required])
+  })
+
 
   constructor() { };
 
@@ -16,8 +27,16 @@ export class IdentityRegistryComponent {
     agentType: new FormControl('', [Validators.required])
   });
 
-  onSubmit(event: any) {
-    console.log(event);
+  check() {
+
+  }
+
+  get() {
+
+  }
+
+  isVerified() {
+
   }
 
 }

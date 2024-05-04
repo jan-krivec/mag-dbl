@@ -188,10 +188,10 @@ contract CountryRestrictModule is AbstractModuleUpgradeable {
         uint256 /*_value*/,
         address _compliance
     ) external view override returns (bool) {
-        uint16 receiverCountry = _getCountry(_compliance, _to);
-        if (isCountryRestricted(_compliance, receiverCountry)) {
-            return false;
-        }
+//        uint16 receiverCountry = _getCountry(_compliance, _to);
+//        if (isCountryRestricted(_compliance, receiverCountry)) {
+//            return false;
+//        }
         return true;
     }
 
@@ -232,7 +232,7 @@ contract CountryRestrictModule is AbstractModuleUpgradeable {
      *  Returns the ISO 3166-1 standard country code of the wallet owner
      *  internal function, used only by the contract itself to process checks on investor countries
      */
-    function _getCountry(address _compliance, address _userAddress) internal view returns (uint16) {
-        return IToken(IModularCompliance(_compliance).getTokenBound()).identityRegistry().investorCountry(_userAddress);
-    }
+//    function _getCountry(address _compliance, address _userAddress) internal view returns (uint16) {
+//        return IToken(IModularCompliance(_compliance).getTokenBound()).identityRegistry().investorCountry(_userAddress);
+//    }
 }

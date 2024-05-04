@@ -26,6 +26,7 @@ contract FactoryStorage {
 
     /// mapping containing info about the token contracts corresponding to salt already used for CREATE2 deployments
     mapping(string => address) public tokenDeployed;
+    mapping(address => bool) public tokens;
 
     string[] public deployedTokens;
 

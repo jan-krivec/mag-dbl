@@ -79,16 +79,14 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AgentRoleUpgradeab
      */
     function addIdentityToStorage(
         address _userAddress,
-        IIdentity _identity,
-        uint16 _country
+        IIdentity _identity
     ) external override onlyAgent {
         require(
             _userAddress != address(0)
             && address(_identity) != address(0)
         , "invalid argument - zero address");
-        require(address(_identities[_userAddress].identityContract) == address(0), "address stored already");
-        _identities[_userAddress].identityContract = _identity;
-        _identities[_userAddress].investorCountry = _country;
+        require(address(_identities[_userAddress]) == address(0), "address stored already");
+        _identities[_userAddress] = _identity;
         emit IdentityStored(_userAddress, _identity);
     }
 
@@ -100,20 +98,10 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AgentRoleUpgradeab
             _userAddress != address(0)
             && address(_identity) != address(0)
         , "invalid argument - zero address");
-        require(address(_identities[_userAddress].identityContract) != address(0), "address not stored yet");
-        IIdentity oldIdentity = _identities[_userAddress].identityContract;
-        _identities[_userAddress].identityContract = _identity;
+        require(address(_identities[_userAddress]) != address(0), "address not stored yet");
+        IIdentity oldIdentity = _identities[_userAddress];
+        _identities[_userAddress] = _identity;
         emit IdentityModified(oldIdentity, _identity);
-    }
-
-    /**
-     *  @dev See {IIdentityRegistryStorage-modifyStoredInvestorCountry}.
-     */
-    function modifyStoredInvestorCountry(address _userAddress, uint16 _country) external override onlyAgent {
-        require(_userAddress != address(0), "invalid argument - zero address");
-        require(address(_identities[_userAddress].identityContract) != address(0), "address not stored yet");
-        _identities[_userAddress].investorCountry = _country;
-        emit CountryModified(_userAddress, _country);
     }
 
     /**
@@ -121,8 +109,8 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AgentRoleUpgradeab
      */
     function removeIdentityFromStorage(address _userAddress) external override onlyAgent {
         require(_userAddress != address(0), "invalid argument - zero address");
-        require(address(_identities[_userAddress].identityContract) != address(0), "address not stored yet");
-        IIdentity oldIdentity = _identities[_userAddress].identityContract;
+        require(address(_identities[_userAddress]) != address(0), "address not stored yet");
+        IIdentity oldIdentity = _identities[_userAddress];
         delete _identities[_userAddress];
         emit IdentityUnstored(_userAddress, oldIdentity);
     }
@@ -167,13 +155,6 @@ contract IdentityRegistryStorage is IIdentityRegistryStorage, AgentRoleUpgradeab
      *  @dev See {IIdentityRegistryStorage-storedIdentity}.
      */
     function storedIdentity(address _userAddress) external view override returns (IIdentity) {
-        return _identities[_userAddress].identityContract;
-    }
-
-    /**
-     *  @dev See {IIdentityRegistryStorage-storedInvestorCountry}.
-     */
-    function storedInvestorCountry(address _userAddress) external view override returns (uint16) {
-        return _identities[_userAddress].investorCountry;
+        return _identities[_userAddress];
     }
 }
