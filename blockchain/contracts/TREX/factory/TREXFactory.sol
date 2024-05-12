@@ -86,12 +86,12 @@ contract TREXFactory is ITREXFactory, FactoryAgentRole, FactoryStorage {
 
    function addIdentityAgent(address _agent) public onlyOwner override{
        super.addIdentityAgent(_agent);
-       AgentRole(address(_factoryIdentityRegistry)).addAgent(_agent);
+       AgentRole(_factoryIdentityRegistry).addAgent(_agent);
    }
 
    function removeIdentityAgent(address _agent) public onlyOwner override{
        super.removeIdentityAgent(_agent);
-       AgentRole(address(_factoryIdentityRegistry)).removeAgent(_agent);
+       AgentRole(_factoryIdentityRegistry).removeAgent(_agent);
    }
 
    function addTokenAgent(address _agent) public onlyOwner override{
@@ -109,23 +109,26 @@ contract TREXFactory is ITREXFactory, FactoryAgentRole, FactoryStorage {
    }
 
 
-    /// constructor is setting the implementation authority and the Identity Factory of the TREX factory
-    constructor(address implementationAuthority_, address idFactory_) {
+    // solhint-disable-next-line code-complexity, function-max-lines
+    constructor(address implementationAuthority_, address idFactory_, AgentDetails memory _agentDetails) {
 
         setImplementationAuthority(implementationAuthority_);
         setIdFactory(idFactory_);
 
-
-        _factoryTrustedIssuersRegistry = ITrustedIssuersRegistry(_deployTIR("factory", _implementationAuthority));
-        _factoryClaimTopicsRegistry = IClaimTopicsRegistry(_deployCTR("factory", _implementationAuthority));
-        _factoryCompliance = IModularCompliance(_deployMC("factory", _implementationAuthority));
+        ITrustedIssuersRegistry tir = ITrustedIssuersRegistry(_deployTIR("factory", _implementationAuthority));
+        IClaimTopicsRegistry ctr = IClaimTopicsRegistry(_deployCTR("factory", _implementationAuthority));
+        IModularCompliance mc = IModularCompliance(_deployMC("factory", _implementationAuthority));
         IIdentityRegistryStorage irs = IIdentityRegistryStorage(_deployIRS("factory", _implementationAuthority));
-        _factoryIdentityRegistry = IIdentityRegistry(_deployIR("factory", _implementationAuthority, address(_factoryTrustedIssuersRegistry),
-            address(_factoryClaimTopicsRegistry), address(irs)));
-        irs.bindIdentityRegistry(address(_factoryIdentityRegistry));
-    }
+        IIdentityRegistry ir = IIdentityRegistry(_deployIR("factory", _implementationAuthority, address(tir),
+            address(ctr), address(irs)));
+        irs.bindIdentityRegistry(address(ir));
 
-    function setAgents(AgentDetails calldata _agentDetails) external override onlyOwner{
+        _factoryIdentityRegistry = address(ir);
+        _factoryClaimTopicsRegistry = address(ctr);
+        _factoryTrustedIssuersRegistry = address(tir);
+        _factoryCompliance = address(mc);
+        _factoryIdentityRegistryStorage = address(irs);
+
         for (uint256 i = 0; i < (_agentDetails.irAgents).length; i++) {
             addIdentityAgent(_agentDetails.irAgents[i]);
         }
@@ -136,8 +139,13 @@ contract TREXFactory is ITREXFactory, FactoryAgentRole, FactoryStorage {
             addDBLAgent(_agentDetails.dblAgents[i]);
         }
         emit AgentsSet(_agentDetails.irAgents, _agentDetails.tokenAgents, _agentDetails.dblAgents);
-    }
 
+        (Ownable(_factoryTrustedIssuersRegistry)).transferOwnership(owner());
+        (Ownable(_factoryClaimTopicsRegistry)).transferOwnership(owner());
+        (Ownable(_factoryCompliance)).transferOwnership(owner());
+        (Ownable(_factoryIdentityRegistryStorage)).transferOwnership(owner());
+        (Ownable(_factoryIdentityRegistry)).transferOwnership(owner());
+    }
     /**
      *  @dev See {ITREXFactory-deployTREXSuite}.
      */
@@ -200,20 +208,20 @@ contract TREXFactory is ITREXFactory, FactoryAgentRole, FactoryStorage {
         return _implementationAuthority;
     }
 
-    function getTrustedIssuersRegistry() external view returns(address) {
-        return address(_factoryTrustedIssuersRegistry);
+    function getTrustedIssuersRegistry() external override view returns(address) {
+        return _factoryTrustedIssuersRegistry;
     }
 
-    function getClaimTopicsRegistry() external view returns(address) {
-        return address(_factoryClaimTopicsRegistry);
+    function getClaimTopicsRegistry() external override view returns(address) {
+        return _factoryClaimTopicsRegistry;
     }
 
-    function getIdentityRegirstry() external view returns(address) {
-        return address(_factoryIdentityRegistry);
+    function getIdentityRegistry() external override view returns(address) {
+        return _factoryIdentityRegistry;
     }
 
-    function getModularCompliance() external view returns(address) {
-        return address(_factoryCompliance);
+    function getModularCompliance() external override view returns(address) {
+        return _factoryCompliance;
     }
 
     /**

@@ -116,7 +116,6 @@ interface ITREXFactory {
 
     event AgentsSet(address[] _irAgents, address[] _tokenAgents, address[] _dblAgents);
 
-    function setAgents(AgentDetails calldata _agentDetails) external;
     /**
      *  @dev setter for implementation authority contract address
      *  the implementation authority contract contains the addresses of all implementation contracts
@@ -182,7 +181,7 @@ interface ITREXFactory {
 
     function getClaimTopicsRegistry() external view returns(address);
 
-    function getIdentityRegirstry() external view returns(address);
+    function getIdentityRegistry() external view returns(address);
 
     function getModularCompliance() external view returns(address);
 

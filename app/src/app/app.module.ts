@@ -36,7 +36,12 @@ import {IdentityRegistryComponent} from "./components/trex/components/identity-r
 import {
   ClaimTopicsRegistryComponent
 } from "./components/trex/components/claim-topics-registry/claim-topics-registry.component";
-import {TokenFactoryService} from "./services/token-factory.service";
+import {TrexFactoryService} from "./services/trex-factory.service";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {
+  TrustedIssuersRegistryComponent
+} from "./components/trex/components/trusted-issuers-registry/trusted-issuers-registry.component";
+import {IfcViewerComponent} from "./components/ifc-viewer/ifc-viewer.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +53,9 @@ import {TokenFactoryService} from "./services/token-factory.service";
     TokenFactoryComponent,
     AgentComponent,
     IdentityRegistryComponent,
-    ClaimTopicsRegistryComponent
+    ClaimTopicsRegistryComponent,
+    TrustedIssuersRegistryComponent,
+    IfcViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -74,9 +81,10 @@ import {TokenFactoryService} from "./services/token-factory.service";
     MatDialogModule,
     MatListModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
-  providers: [EthereumService, ErrorHandlerService, TokenFactoryService],
+  providers: [EthereumService, ErrorHandlerService, TrexFactoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

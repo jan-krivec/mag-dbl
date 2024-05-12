@@ -237,28 +237,6 @@
           "internalType": "struct ITREXFactory.TokenDetails[]",
           "name": "_tokenDetails",
           "type": "tuple[]"
-        },
-        {
-          "components": [
-            {
-              "internalType": "uint256[]",
-              "name": "claimTopics",
-              "type": "uint256[]"
-            },
-            {
-              "internalType": "address[]",
-              "name": "issuers",
-              "type": "address[]"
-            },
-            {
-              "internalType": "uint256[][]",
-              "name": "issuerClaims",
-              "type": "uint256[][]"
-            }
-          ],
-          "internalType": "struct ITREXFactory.ClaimDetails[]",
-          "name": "_claimDetails",
-          "type": "tuple[]"
         }
       ],
       "name": "batchDeployTREXSuite",
@@ -335,28 +313,6 @@
           ],
           "internalType": "struct ITREXFactory.TokenDetails",
           "name": "_tokenDetails",
-          "type": "tuple"
-        },
-        {
-          "components": [
-            {
-              "internalType": "uint256[]",
-              "name": "claimTopics",
-              "type": "uint256[]"
-            },
-            {
-              "internalType": "address[]",
-              "name": "issuers",
-              "type": "address[]"
-            },
-            {
-              "internalType": "uint256[][]",
-              "name": "issuerClaims",
-              "type": "uint256[][]"
-            }
-          ],
-          "internalType": "struct ITREXFactory.ClaimDetails",
-          "name": "_claimDetails",
           "type": "tuple"
         }
       ],

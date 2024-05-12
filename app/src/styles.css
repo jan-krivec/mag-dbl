@@ -148,9 +148,36 @@ button[type="submit"] {
 }
 
 .router-outlet-container {
+  height: 100%;
   padding-top: 64px;  /* Adjust this value based on the actual height of your toolbar */
 }
 
 .mat-mdc-card-subtitle.subtitle {
   margin-bottom: 2%;
+}
+
+.claim-topic-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.claim-topic-text {
+  flex: 1;
+  padding-right: 10px; /* Add some padding to ensure text doesn't overlap with the button */
+}
+
+.claim-topic-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.claim-topic-text {
+  flex: 1;
+  padding-right: 10px; /* Add some padding to ensure text doesn't overlap with the button */
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+
 }

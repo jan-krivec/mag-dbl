@@ -144,6 +144,19 @@
     },
     {
       "inputs": [],
+      "name": "getClaimTopicsRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "getIdFactory",
       "outputs": [
         {
@@ -157,7 +170,33 @@
     },
     {
       "inputs": [],
+      "name": "getIdentityRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "getImplementationAuthority",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getModularCompliance",
       "outputs": [
         {
           "internalType": "address",
@@ -188,6 +227,19 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "getTrustedIssuersRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -201,36 +253,6 @@
         }
       ],
       "name": "recoverContractOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "components": [
-            {
-              "internalType": "address[]",
-              "name": "irAgents",
-              "type": "address[]"
-            },
-            {
-              "internalType": "address[]",
-              "name": "tokenAgents",
-              "type": "address[]"
-            },
-            {
-              "internalType": "address[]",
-              "name": "dblAgents",
-              "type": "address[]"
-            }
-          ],
-          "internalType": "struct ITREXFactory.AgentDetails",
-          "name": "_agentDetails",
-          "type": "tuple"
-        }
-      ],
-      "name": "setAgents",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

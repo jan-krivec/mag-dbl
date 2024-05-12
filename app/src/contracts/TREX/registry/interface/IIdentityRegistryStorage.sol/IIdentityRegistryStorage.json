@@ -8,25 +8,6 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "address",
-          "name": "investorAddress",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint16",
-          "name": "country",
-          "type": "uint16"
-        }
-      ],
-      "name": "CountryModified",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
           "internalType": "contract IIdentity",
           "name": "oldIdentity",
           "type": "address"
@@ -116,11 +97,6 @@
           "internalType": "contract IIdentity",
           "name": "_identity",
           "type": "address"
-        },
-        {
-          "internalType": "uint16",
-          "name": "_country",
-          "type": "uint16"
         }
       ],
       "name": "addIdentityToStorage",
@@ -178,24 +154,6 @@
           "internalType": "address",
           "name": "_userAddress",
           "type": "address"
-        },
-        {
-          "internalType": "uint16",
-          "name": "_country",
-          "type": "uint16"
-        }
-      ],
-      "name": "modifyStoredInvestorCountry",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_userAddress",
-          "type": "address"
         }
       ],
       "name": "removeIdentityFromStorage",
@@ -217,25 +175,6 @@
           "internalType": "contract IIdentity",
           "name": "",
           "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_userAddress",
-          "type": "address"
-        }
-      ],
-      "name": "storedInvestorCountry",
-      "outputs": [
-        {
-          "internalType": "uint16",
-          "name": "",
-          "type": "uint16"
         }
       ],
       "stateMutability": "view",

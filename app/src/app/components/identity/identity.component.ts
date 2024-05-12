@@ -67,10 +67,6 @@ export class IdentityComponent{
   ngOnInit() {
   }
 
-  createIdentity() {
-    this.identityService.createIdentity();
-  }
-
   async addKey() {
     await this.identityService.addKey(this.addKeyForm.get('onchainId').value, this.addKeyForm.get('ciaddress').value, this.addKeyForm.get('keyType').value);
   }

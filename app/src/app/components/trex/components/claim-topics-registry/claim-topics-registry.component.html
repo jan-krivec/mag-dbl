@@ -5,6 +5,12 @@
         <mat-card-title>Claim Topics</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <mat-list>
+          <mat-list-item style="font-weight: bold" *ngFor="let topic of claimTopics">
+            <mat-icon matListItemIcon>circle</mat-icon>
+            {{topic}}
+          </mat-list-item>
+        </mat-list>
       </mat-card-content>
     </mat-card>
 
@@ -16,12 +22,12 @@
         <div class="car-tab">
           <mat-card-subtitle class="subtitle">Add Claim Topic</mat-card-subtitle>
 
-          <form class="center-content">
+          <form class="center-content" [formGroup]="addTopicForm" (ngSubmit)="addClaimTopic()">
 
             <div style="width: 90%">
               <mat-form-field fxFlex="100%">
                 <mat-label>Claim Topic</mat-label>
-                <input matInput type="number">
+                <input matInput formControlName="topic" type="number">
               </mat-form-field>
             </div>
 
@@ -31,18 +37,18 @@
 
           <mat-divider style="margin: 3% 0"></mat-divider>
 
-          <mat-card-subtitle class="subtitle">Delete Claim Topic</mat-card-subtitle>
+          <mat-card-subtitle class="subtitle">Remove Claim Topic</mat-card-subtitle>
 
-          <form class="center-content">
+          <form class="center-content" [formGroup]="removeTopicForm" (ngSubmit)="removeClaimTopic()">
 
             <div style="width: 90%">
               <mat-form-field fxFlex="100%">
                 <mat-label>Claim Topic</mat-label>
-                <input matInput type="number">
+                <input matInput formControlName="topic" type="number">
               </mat-form-field>
             </div>
 
-            <button type="submit" mat-raised-button>Delete Claim Topic</button>
+            <button type="submit" mat-raised-button>Remove Claim Topic</button>
 
           </form>
 

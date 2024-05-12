@@ -166,13 +166,4 @@ abstract contract BasicCompliance is AgentRole, ICompliance {
         return address(tokenBound.identityRegistry().identity(_userAddress));
     }
 
-    /**
-    *  @dev Returns the country of residence of the _userAddress
-    *  @param _userAddress Address of the wallet
-    *  internal function, can be called only from the functions of the Compliance smart contract
-    */
-    function _getCountry(address _userAddress) internal view returns (uint16) {
-        return tokenBound.identityRegistry().investorCountry(_userAddress);
-    }
-
 }

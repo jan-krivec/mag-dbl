@@ -19,11 +19,10 @@ export class MenubarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.ethereumService.isConnectedEvent.subscribe((isConnected: boolean) => {
       this.isConnected = isConnected;
     });
-    // this.ethereumService.checkIsConencted();
   }
 
   ngAfterViewInit() {
-    // this.ethereumService.checkIsConencted();
+    this.ethereumService.checkIsConected();
   }
 
   ngOnDestroy() {

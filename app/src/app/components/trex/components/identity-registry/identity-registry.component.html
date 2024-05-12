@@ -1,57 +1,102 @@
-<mat-card class="factory-card">
-  <mat-card-header>
-    <mat-card-title>T-REX Factory</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="car-tab">
-      <mat-card-subtitle class="subtitle">Check if Identity is registered</mat-card-subtitle>
-      <form class="center-content" [formGroup]="checkGroup" (ngSubmit)="check()">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="5%">
 
-        <div style="width: 90%">
-          <mat-form-field fxFlex="100%">
-            <mat-label>User Address</mat-label>
-            <input matInput formControlName="check" type="text">
-          </mat-form-field>
-        </div>
+  <mat-card fxFlex="45%" class="factory-card">
+    <mat-card-header>
+      <mat-card-title>Read</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="car-tab">
+        <mat-card-subtitle class="subtitle">Check if Identity is registered</mat-card-subtitle>
+        <form class="center-content" [formGroup]="checkGroup" (ngSubmit)="check()">
 
-        <button type="submit" mat-raised-button>Check</button>
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="check" type="text">
+            </mat-form-field>
+          </div>
 
-      </form>
+          <button type="submit" mat-raised-button>Check</button>
 
-      <mat-divider style="margin: 3% 0"></mat-divider>
+        </form>
 
-      <mat-card-subtitle class="subtitle">Get Identity Address</mat-card-subtitle>
+        <mat-divider style="margin: 3% 0"></mat-divider>
 
-      <form class="center-content" [formGroup]="getGroup" (ngSubmit)="get()">
+        <mat-card-subtitle class="subtitle">Get Identity Address</mat-card-subtitle>
 
-        <div style="width: 90%">
-          <mat-form-field fxFlex="100%">
-            <mat-label>User Address</mat-label>
-            <input matInput formControlName="get" type="text">
-          </mat-form-field>
-        </div>
+        <form class="center-content" [formGroup]="getGroup" (ngSubmit)="get()">
 
-        <button type="submit" mat-raised-button>Get</button>
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="get" type="text">
+            </mat-form-field>
+          </div>
 
-      </form>
+          <button type="submit" mat-raised-button>Get</button>
 
-      <mat-divider style="margin: 3% 0"></mat-divider>
+        </form>
 
-      <mat-card-subtitle class="subtitle">Check if Verified</mat-card-subtitle>
+        <mat-divider style="margin: 3% 0"></mat-divider>
 
-      <form class="center-content" [formGroup]="isVerifiedGroup" (ngSubmit)="isVerified()">
+        <mat-card-subtitle class="subtitle">Check if Verified</mat-card-subtitle>
 
-        <div style="width: 90%">
-          <mat-form-field fxFlex="100%">
-            <mat-label>User Address</mat-label>
-            <input matInput formControlName="isVerified" type="text">
-          </mat-form-field>
-        </div>
+        <form class="center-content" [formGroup]="isVerifiedGroup" (ngSubmit)="isVerified()">
 
-        <button type="submit" mat-raised-button>Check</button>
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="isVerified" type="text">
+            </mat-form-field>
+          </div>
 
-      </form>
+          <button type="submit" mat-raised-button>Check</button>
 
-    </div>
-  </mat-card-content>
-</mat-card>
+        </form>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex="45%" class="factory-card">
+    <mat-card-header>
+      <mat-card-title>Modify</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="car-tab">
+        <mat-card-subtitle class="subtitle">Register Identiy</mat-card-subtitle>
+        <form class="center-content" [formGroup]="registerIdentiyGroup" (ngSubmit)="registerIdentity()">
+
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="address" type="text">
+            </mat-form-field>
+          </div>
+
+          <button type="submit" mat-raised-button>Register</button>
+
+        </form>
+
+        <mat-divider style="margin: 3% 0"></mat-divider>
+
+        <mat-card-subtitle class="subtitle">Delete Identity</mat-card-subtitle>
+
+        <form class="center-content" [formGroup]="deleteIdentiyGroup" (ngSubmit)="deleteIdentity()">
+
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="address" type="text">
+            </mat-form-field>
+          </div>
+
+          <button type="submit" mat-raised-button>Delete</button>
+
+        </form>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

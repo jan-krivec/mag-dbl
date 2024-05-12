@@ -15,14 +15,16 @@ contract FactoryStorage {
     address internal _idFactory;
 
     /// @dev Identity Registry contract used by the onchain validator system
-    IIdentityRegistry internal _factoryIdentityRegistry;
+    address internal _factoryIdentityRegistry;
 
-    IClaimTopicsRegistry internal _factoryClaimTopicsRegistry;
+    address internal _factoryClaimTopicsRegistry;
 
-    ITrustedIssuersRegistry internal _factoryTrustedIssuersRegistry;
+    address internal _factoryTrustedIssuersRegistry;
 
     /// @dev Compliance contract linked to the onchain validator system
-    IModularCompliance internal _factoryCompliance;
+    address internal _factoryCompliance;
+
+    address internal _factoryIdentityRegistryStorage;
 
     /// mapping containing info about the token contracts corresponding to salt already used for CREATE2 deployments
     mapping(string => address) public tokenDeployed;

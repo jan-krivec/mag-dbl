@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {TokenFactoryDTO} from "./trex.model";
 import {FormBuilder, Validators} from "@angular/forms";
-import {TokenFactoryService} from "../../services/token-factory.service";
+import {TrexFactoryService} from "../../services/trex-factory.service";
 
 @Component({
   selector: '',
@@ -10,9 +10,9 @@ import {TokenFactoryService} from "../../services/token-factory.service";
 export class TrexComponent {
   public tokenFactory: TokenFactoryDTO;
   public selectedView: string = 'Claim Topics Registry';
-  public views: string[] = ['Factory', 'Agents', 'Identity Registry', 'Claim Topics Registry'];
+  public views: string[] = ['Factory', 'Agents', 'Identity Registry', 'Claim Topics Registry', 'Trusted Issuers Registry'];
 
-  constructor(private tokenFactoryService: TokenFactoryService) { };
+  constructor() { };
 
   changeView(value: string) {
     this.selectedView = value;

@@ -20,15 +20,20 @@ export class EthereumService implements OnInit, OnDestroy {
   web3: any;
   factory: any;
 
-  private _provider: ethers.providers.Web3Provider | undefined;
+  private _writeProvider: ethers.providers.Web3Provider | undefined;
+  private _readProvider: ethers.providers.JsonRpcProvider | undefined;
   identity: Identity | null = null;
 
-  get provider() {
-    return this._provider;
+  get writeProvider() {
+    return this._writeProvider;
   }
 
-  set provider(val) {
-    this._provider = val;
+  set writeProvider(val) {
+    this._writeProvider = val;
+  }
+
+  get readProvider() {
+    return this._readProvider;
   }
 
   private _account: string | null = null;
@@ -38,21 +43,21 @@ export class EthereumService implements OnInit, OnDestroy {
   }
 
   set account(val) {
-    this.isConnected = val !== null;
-    if (this.isConnected) {
-      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+    if (val !== null) {
+      this.writeProvider = new ethers.providers.Web3Provider(window.ethereum);
     }
     this._account = val;
+    this.isConnected = val !== null;
     this.setIdentity();
   }
 
   async setIdentity() {
     if (this.isConnected) {
-      const provider = this.provider;
-      // this.factory = new ethers.Contract(environment.idFactoryAdr, factoryJson.abi, this.provider.getSigner());
+      const provider = this.readProvider;
+      this.factory = new ethers.Contract(environment.idFactoryAdr, factoryJson.abi, this.readProvider.getSigner());
 
-      // const idAccount = await this.factory.getIdentity(this.account);
-      // this.identity = await Identity.at(idAccount, provider.getSigner());
+      const idAccount = await this.factory.getIdentity(this.account);
+      this.identity = await Identity.at(idAccount, provider.getSigner());
 
     }
   }
@@ -80,7 +85,8 @@ export class EthereumService implements OnInit, OnDestroy {
     this.isConnectedEvent.next(val);
   }
 
-  constructor(private errorHandlerService: ErrorHandlerService) {
+  constructor(public errorHandlerService: ErrorHandlerService) {
+    this._readProvider = new ethers.providers.JsonRpcProvider();
   }
 
   ngOnInit() {
@@ -133,21 +139,9 @@ export class EthereumService implements OnInit, OnDestroy {
     this.account = accounts?.length > 0 ? accounts[0] : null;
   }
 
-  async createIdentity() {
-    if (this.provider) {
-
-      const address = await this.provider.getSigner().getAddress();
-      if (this.factory) {
-        const tx = await this.factory.createIdentity('0x388Ef493FaD03e3C73844Be82317017dEfdf6899', '0x388Ef493FaD03e3C73844Be82317017dEfdf6899');
-        console.log(`Deploy a new identity as a proxy using factory ${this.factory.address} . tx: ${tx.hash}`);
-        await tx.wait();
-      }
-    }
-  }
-
   async addKey(onchainId: string, claimIssuerAddr: string, keyType: string) {
-    const signer = this.provider.getSigner();
-    const identity = await Identity.at(onchainId, this.provider.getSigner());
+    const signer = this.writeProvider.getSigner();
+    const identity = await Identity.at(onchainId, this.writeProvider.getSigner());
     const purpose = this.mapPurposeToKey(keyType);
     try {
       const addKeyTransaction = await identity.addKey(IdentitySDK.utils.encodeAndHash(['address'], [claimIssuerAddr]), purpose, IdentitySDK.utils.enums.KeyType.ECDSA, {signer});
@@ -160,8 +154,8 @@ export class EthereumService implements OnInit, OnDestroy {
   }
 
   async removeKey(onchainId: string, claimIssuerAddr: string, keyType: string) {
-    const signer = this.provider.getSigner();
-    const identity = await Identity.at(onchainId, this.provider.getSigner());
+    const signer = this.writeProvider.getSigner();
+    const identity = await Identity.at(onchainId, this.writeProvider.getSigner());
     const purpose = this.mapPurposeToKey(keyType);
     try {
       const removeKeyTransaction = await identity.removeKey(IdentitySDK.utils.encodeAndHash(['address'], [claimIssuerAddr]), purpose, {signer});
@@ -177,7 +171,7 @@ export class EthereumService implements OnInit, OnDestroy {
 
     try {
 
-      const identity = await Identity.at(onchainId, this.provider.getSigner());
+      const identity = await Identity.at(onchainId, this.readProvider.getSigner());
 
       let keys: any[] = [];
 
@@ -209,9 +203,9 @@ export class EthereumService implements OnInit, OnDestroy {
   }
 
   async addClaim(onchainId: string, topic: number, data: string) {
-    if (this.provider != null) {
+    if (this.writeProvider != null) {
       try {
-        const signer = this.provider.getSigner();
+        const signer = this.writeProvider.getSigner();
         const identity = await Identity.at(onchainId, signer);
 
 
@@ -242,7 +236,7 @@ export class EthereumService implements OnInit, OnDestroy {
   }
 
   async getClaimIdsByTopic(onchainId: string, topic: number) {
-    const identity = new IdentitySDK.Identity(onchainId, this.provider.getSigner());
+    const identity = new IdentitySDK.Identity(onchainId, this.writeProvider.getSigner());
 
     const claims = await identity.getClaimsByTopic(topic ? topic : 0);
 

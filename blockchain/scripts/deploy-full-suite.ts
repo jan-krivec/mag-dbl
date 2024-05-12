@@ -12,7 +12,7 @@ async function main() {
 
   await identityImplementation.deployed();
   console.log(
-    `Deployed identity implementation for wallet ${deployer.address} at ${identityImplementation.address} (tx hash: ${identityImplementation.deployTransaction.hash} )`,
+    `Deployed identity implementation for wallet ${deployer.address} at ${identityImplementation.address}`,
   );
 
   console.log('--------------------------------------------------');
@@ -25,7 +25,7 @@ async function main() {
 
   await identityImplementationAuthority.deployed();
   console.log(
-    `Deployed implementation authority at ${identityImplementationAuthority.address} (tx hash: ${identityImplementationAuthority.deployTransaction.hash} )`,
+    `Deployed implementation authority at ${identityImplementationAuthority.address}`,
   );
 
   console.log('--------------------------------------------------');
@@ -35,7 +35,7 @@ async function main() {
   );
 
   await idFactory.deployed();
-  console.log(`Deployed idFactory at ${idFactory.address} (tx hash: ${idFactory.deployTransaction.hash} )`);
+  console.log(`Deployed idFactory at ${idFactory.address}.`);
 
   console.log('--------------------------------------------------');
 
@@ -60,7 +60,7 @@ async function main() {
     await tx.wait();
     const identityAddress = await idFactory.getIdentity(addr);
 
-    console.log(`Deployed a new identity for ca ${addr} at ${identityAddress} as a proxy using idFactory. tx: ${tx.hash}`);
+    console.log(`Deployed a new identity for ca ${addr} at ${identityAddress}`);
     console.log('--------------------------------------------------');
   }
 
@@ -98,7 +98,7 @@ async function main() {
   const tokenImplementation = await ethers.deployContract('Token', deployer);
   await tokenImplementation.deployed();
   console.log('Deployed tokenImplementation');
-
+  //
   const trexImplementationAuthority = await ethers.deployContract(
     'TREXImplementationAuthority',
     [true, ethers.constants.AddressZero, ethers.constants.AddressZero],
@@ -125,9 +125,9 @@ async function main() {
     tirImplementation: trustedIssuersRegistryImplementation.address,
     mcImplementation: modularComplianceImplementation.address,
   };
-
-  console.log(contractsStruct);
-
+  //
+  // console.log(contractsStruct);
+  //
   const txResponse = await trexImplementationAuthority.connect(deployer).addAndUseTREXVersion(versionStruct, contractsStruct);
 
   const receipt = await txResponse.wait();
@@ -143,38 +143,35 @@ async function main() {
   };
 
   const trexFactory = await ethers.deployContract('TREXFactory', [
-    '0x7C0Aa5f3B4c3a4663dB178DC4303A736b1A01DB1',
-    '0x53AB0675C2b36489A15d8169BA7E2bb218641dB7',
+    '0x5E9edffb31F0a7Ca37E1a29DEbB2B88a62a439B0',
+    '0xE96A9Aa963C4f5BCA028ca1E022F99e8BCED6db3',
+    agentDetails,
   ]);
 
   await trexFactory.deployed();
+
+  console.log('Factory deployed');
   console.log(`Deployed TREX Factory at ${trexFactory.address}`);
 
-  const txResponse2 = await trexFactory.connect(deployer).setAgents(agentDetails);
-
-  await txResponse2.wait();
-
-  const trustedIssuersRegistry = trexFactory.connect(deployer).getTrustedIssuersRegistry();
-
-  await trustedIssuersRegistry.wait();
+  const trustedIssuersRegistry = await trexFactory.connect(deployer).getTrustedIssuersRegistry();
 
   console.log(`Factory Trusted Issuers Registry: ${trustedIssuersRegistry}`);
 
-  const claimTopicsRegistry = trexFactory.connect(deployer).getTrustedIssuersRegistry();
+  const claimTopicsRegistry = await trexFactory.connect(deployer).getClaimTopicsRegistry();
 
-  await claimTopicsRegistry.wait();
+  console.log(`Factory Claim Topics Registry: ${claimTopicsRegistry}`);
 
-  console.log(`Claim Topics Registry: ${claimTopicsRegistry}`);
+  const identityRegistry = await trexFactory.connect(deployer).getIdentityRegistry();
 
-  const identityRegistry = trexFactory.connect(deployer).getTrustedIssuersRegistry();
+  console.log(`Factory Identity Registry: ${identityRegistry}`);
 
-  await identityRegistry.wait();
+  const modularCompliance = await trexFactory.connect(deployer).getModularCompliance();
 
-  console.log(`Identity Registry: ${identityRegistry}`);
-
-  console.log(`Set agents\n ${JSON.stringify(agentDetails)}`);
+  console.log(`Factory Modular compliance: ${modularCompliance}`);
 
   await idFactory.connect(deployer).addTokenFactory(trexFactory.address);
+
+  console.log('Connedted TREX Factroy to Identity Factory');
 }
 
 main().catch((error) => {

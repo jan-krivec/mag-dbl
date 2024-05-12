@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {TokenFactoryService} from "../../../../services/token-factory.service";
+import {TrexFactoryService} from "../../../../services/trex-factory.service";
 
 @Component({
   selector: 'app-token-factory',
@@ -10,7 +10,7 @@ export class TokenFactoryComponent {
 
   agentTypes = ["Identity", "Token", "DBL",]
 
-  constructor() {
+  constructor(private trexFactoryService: TrexFactoryService) {
 
   };
 
@@ -20,7 +20,7 @@ export class TokenFactoryComponent {
   });
 
   onSubmit(event: any) {
-    console.log(event);
+    this.trexFactoryService.getClaimTopics();
   }
 
 }

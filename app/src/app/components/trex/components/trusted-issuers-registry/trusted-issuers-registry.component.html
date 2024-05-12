@@ -1,0 +1,91 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+
+  <mat-card fxFlex="20%" class="factory-card">
+    <mat-card-header>
+      <mat-card-title>Claim Topics</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item style="font-weight: bold" *ngFor="let ti of trustedIssuers">
+          <mat-icon matListItemIcon>circle</mat-icon>
+          {{ti}}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex="45%" class="factory-card">
+    <mat-card-header>
+      <mat-card-title>Trusted Issuers Registry</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="car-tab">
+        <mat-card-subtitle class="subtitle">Add Trusted Issuer</mat-card-subtitle>
+
+        <form class="center-content" [formGroup]="this.addTrustedIssuerGroup">
+
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>User Address</mat-label>
+              <input matInput formControlName="address" type="text">
+            </mat-form-field>
+          </div>
+
+          <div style="width: 90%">
+            <mat-form-field fxFlex="100%">
+              <mat-label>Claim Topic</mat-label>
+              <input matInput formControlName="addClaimTopic" type="number">
+            </mat-form-field>
+          </div>
+
+          <button style="align-self: flex-end; margin-right: 5%;" type="button" mat-raised-button
+                  (click)="this.addClaimTopic()">Add
+          </button>
+
+          <div style="width: 90%; margin: 15px 0">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Claim Topics</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-list #shoes>
+                  <mat-list-item class="claim-topic-item" *ngFor="let claimTopic of tiClaimTopics">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="claim-topic-text">{{claimTopic}}</div>
+                      <button type="button" (click)="this.deleteClaimTopic(claimTopic)" mat-icon-button color="warn">
+                        x
+                      </button>
+                    </div>
+
+                  </mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <button type="submit" mat-raised-button>Add Trusted Issuer</button>
+
+        </form>
+
+        <mat-divider style="margin: 3% 0"></mat-divider>
+
+        <mat-card-subtitle class="subtitle">Remove Claim Topic</mat-card-subtitle>
+
+        <form class="center-content">
+
+          <!--          <div style="width: 90%">-->
+          <!--            <mat-form-field fxFlex="100%">-->
+          <!--              <mat-label>Claim Topic</mat-label>-->
+          <!--              <input matInput formControlName="topic" type="number">-->
+          <!--            </mat-form-field>-->
+          <!--          </div>-->
+
+          <button type="submit" mat-raised-button>Remove Claim Topic</button>
+
+        </form>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

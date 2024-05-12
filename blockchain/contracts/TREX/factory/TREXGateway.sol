@@ -294,14 +294,13 @@ contract TREXGateway is ITREXGateway, AgentRole {
      *  @dev See {ITREXGateway-batchDeployTREXSuite}.
      */
     function batchDeployTREXSuite(
-        ITREXFactory.TokenDetails[] memory _tokenDetails,
-        ITREXFactory.ClaimDetails[] memory _claimDetails) external override
+        ITREXFactory.TokenDetails[] memory _tokenDetails) external override
     {
         if(_tokenDetails.length > 5) {
             revert BatchMaxLengthExceeded(5);
         }
         for (uint256 i = 0; i < _tokenDetails.length; i++) {
-            deployTREXSuite(_tokenDetails[i], _claimDetails[i]);
+            deployTREXSuite(_tokenDetails[i]);
         }
     }
 
@@ -336,7 +335,7 @@ contract TREXGateway is ITREXGateway, AgentRole {
     /**
      *  @dev See {ITREXGateway-deployTREXSuite}.
      */
-    function deployTREXSuite(ITREXFactory.TokenDetails memory _tokenDetails, ITREXFactory.ClaimDetails memory _claimDetails)
+    function deployTREXSuite(ITREXFactory.TokenDetails memory _tokenDetails)
     public override {
         if(_publicDeploymentStatus == false && !isDeployer(msg.sender)) {
             revert PublicDeploymentsNotAllowed();

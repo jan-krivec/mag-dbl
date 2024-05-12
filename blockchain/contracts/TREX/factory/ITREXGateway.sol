@@ -233,13 +233,11 @@ interface ITREXGateway {
     * and a unique salt is derived from the token owner's address and the token name for the deployment.
     *
     * @param _tokenDetails Struct containing details necessary for token deployment such as name, symbol, etc.
-    * @param _claimDetails Struct containing details related to claims for the token.
     * emits GatewaySuiteDeploymentProcessed This event is emitted post-deployment, indicating the deployer, the token
     * owner, and the fee applied.
     */
     function deployTREXSuite(
-        ITREXFactory.TokenDetails memory _tokenDetails,
-        ITREXFactory.ClaimDetails memory _claimDetails
+        ITREXFactory.TokenDetails memory _tokenDetails
     ) external;
 
     /**
@@ -256,7 +254,6 @@ interface ITREXGateway {
     * unique salt derived from the token owner's address and token name.
     *
     * @param _tokenDetails Array of structs, each containing details necessary for token deployment such as name, symbol, etc.
-    * @param _claimDetails Array of structs, each containing details related to claims for the respective token.
     * reverts with BatchMaxLengthExceeded if the length of either `_tokenDetails` or `_claimDetails` arrays exceeds 5.
     * reverts with PublicDeploymentsNotAllowed if public deployments are disabled and the caller is not an approved
     * deployer.
@@ -266,8 +263,7 @@ interface ITREXGateway {
     * the deployer, the token owner, and any fee applied.
     */
     function batchDeployTREXSuite(
-        ITREXFactory.TokenDetails[] memory _tokenDetails,
-        ITREXFactory.ClaimDetails[] memory _claimDetails) external;
+        ITREXFactory.TokenDetails[] memory _tokenDetails) external;
 
     /**
     * @notice Retrieves the current public deployment status.
