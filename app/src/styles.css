@@ -32,7 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .id-card {
-  max-height: 70vh;
+
 }
 
 
@@ -148,7 +148,10 @@ button[type="submit"] {
 }
 
 .router-outlet-container {
-  height: 100%;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Full viewport height */
   padding-top: 64px;  /* Adjust this value based on the actual height of your toolbar */
 }
 

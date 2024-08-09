@@ -47,6 +47,12 @@ export class IdentityComponent{
     keyType: new FormControl(null, [Validators.required])
   })
 
+  deleteKeyForm = new FormGroup({
+    onchainId: new FormControl('', [Validators.required]),
+    ciaddress: new FormControl('', [Validators.required]),
+    keyType: new FormControl(null, [Validators.required])
+  })
+
   viewClaimForm = new FormGroup({
     onchainId: new FormControl('', [Validators.required]),
     topic: new FormControl(null,[Validators.required])
@@ -56,6 +62,11 @@ export class IdentityComponent{
     onchainId: new FormControl('', [Validators.required]),
     topic: new FormControl(null, [Validators.required]),
     data: new FormControl('', [Validators.required])
+  })
+
+  deleteClaimForm = new FormGroup({
+    onchainId: new FormControl('', [Validators.required]),
+    claimId: new FormControl(null, [Validators.required])
   })
 
 
@@ -89,5 +100,13 @@ export class IdentityComponent{
   async viewClaims() {
     const claims: ClaimDTO[] = await this.identityService.getClaimIdsByTopic(this.viewClaimForm.get('onchainId').value, this.viewClaimForm.get('topic').value);
     this.claimDTOS = claims;
+  }
+
+  async removeClaim() {
+    await this.identityService.removeClaim(this.deleteClaimForm.get('onchainId').value, this.deleteClaimForm.get('claimId').value)
+  }
+
+  async removeKey() {
+    await this.identityService.removeKey(this.deleteKeyForm.get('onchainId').value, this.deleteKeyForm.get('ciaddress').value, this.deleteKeyForm.get('keyType').value);
   }
 }

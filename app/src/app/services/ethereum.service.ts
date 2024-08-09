@@ -9,6 +9,7 @@ import {IdentityComponent} from "../components/identity/identity.component";
 import {ErrorHandlerService} from "../shared/error/error-handler.service";
 import {Subject} from "rxjs";
 const jsrsasign = require('jsrsasign');
+import IdentityAbiJson from "../../contracts/ONCHAINID/Identity.sol/Identity.json"
 
 
 declare let window: any;
@@ -141,7 +142,8 @@ export class EthereumService implements OnInit, OnDestroy {
 
   async addKey(onchainId: string, claimIssuerAddr: string, keyType: string) {
     const signer = this.writeProvider.getSigner();
-    const identity = await Identity.at(onchainId, this.writeProvider.getSigner());
+    const identity = await Identity.at(onchainId, signer);
+    console.log(identity);
     const purpose = this.mapPurposeToKey(keyType);
     try {
       const addKeyTransaction = await identity.addKey(IdentitySDK.utils.encodeAndHash(['address'], [claimIssuerAddr]), purpose, IdentitySDK.utils.enums.KeyType.ECDSA, {signer});
@@ -228,6 +230,23 @@ export class EthereumService implements OnInit, OnDestroy {
         await tx.wait();
 
         console.log(`Added claim at tx hash ${tx.hash}`);
+
+      } catch (error) {
+        this.errorHandlerService.displayError(error.message);
+      }
+    }
+  }
+
+  async removeClaim(onchainId: string, claimId: string) {
+    if (this.writeProvider != null) {
+      try {
+        const signer = this.writeProvider.getSigner();
+        const identity = await Identity.at(onchainId, signer);
+
+        const tx = await identity.removeClaim(claimId, { signer });
+        await tx.wait();
+
+        console.log(`Removed claim at tx hash ${tx.hash}`);
 
       } catch (error) {
         this.errorHandlerService.displayError(error.message);

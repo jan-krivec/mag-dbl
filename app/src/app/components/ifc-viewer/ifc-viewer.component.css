@@ -1,12 +1,66 @@
-#viewer-container {
-  width: 50vw;
-  height: 50vh;
+.viewer-container {
+  position: relative; /* Allows child elements to be positioned absolutely */
+  width: 80vw;       /* Full width of the viewport */
+  height: 80vh;      /* Full height of the viewport */
+  overflow: hidden;
 }
 
-.container-wrapper {
+.full-screen {
+  width: 100%; /* Fill the parent container */
   height: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;  /* Ensure it's below the panel */
+}
+
+.panel-container {
+  position: absolute;
+  top: 10px;      /* Adjust as needed to position inside the container */
+  right: 10px;    /* Adjust as needed to position inside the container */
+  width: 400px;   /* Set a width for the panel */
+  z-index: 2;     /* Ensure it's above the viewer */
+  padding: 1rem;  /* Add padding for content spacing */
+  max-width: calc(100% - 20px); /* Ensure panel doesn't exceed container width */
+  max-height: calc(60% - 20px); /* Ensure panel doesn't exceed container height */
+  overflow: auto; /* Make the panel scrollable when content exceeds max-height */
+}
+
+.minimap {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 3; /* Ensure it's above both the viewer and the panel */
+}
+
+.options-menu {
+  position: fixed;
+  min-width: unset;
+  top: 5px;
+  right: 5px;
+  max-height: calc(100vh - 10px);
+}
+
+.phone-menu-toggler {
+  visibility: hidden;
+}
+
+@media (max-width: 480px) {
+  .options-menu {
+    visibility: hidden;
+    bottom: 5px;
+    left: 5px;
+  }
+
+  .options-menu-visible {
+    visibility: visible;
+  }
+
+  .phone-menu-toggler {
+    visibility: visible;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+  }
 }

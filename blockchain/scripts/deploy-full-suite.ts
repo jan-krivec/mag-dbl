@@ -50,7 +50,8 @@ async function main() {
     '0x2C84990BbF49D95d9c826D061aDd2b538ffFda1B',
     '0xAF508a3EC6A80c6f6Bd916e346ECc0b6937B60bB',
     '0x388Ef493FaD03e3C73844Be82317017dEfdf6899',
-    '0xFF824e87e92cE3dd3e74b9Ad04909a36d5E24400',
+    '0xFF824e87e92cE3dd3e74' +
+    ',0b9Ad04909a36d5E24400',
   ];
 
   for (const i in contractAdresses) {
@@ -143,8 +144,8 @@ async function main() {
   };
 
   const trexFactory = await ethers.deployContract('TREXFactory', [
-    '0x5E9edffb31F0a7Ca37E1a29DEbB2B88a62a439B0',
-    '0xE96A9Aa963C4f5BCA028ca1E022F99e8BCED6db3',
+    trexImplementationAuthority.address,
+    idFactory.address,
     agentDetails,
   ]);
 

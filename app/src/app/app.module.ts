@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA   } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +42,7 @@ import {
   TrustedIssuersRegistryComponent
 } from "./components/trex/components/trusted-issuers-registry/trusted-issuers-registry.component";
 import {IfcViewerComponent} from "./components/ifc-viewer/ifc-viewer.component";
+import {PanelComponent} from "./components/ifc-viewer/panel/panel.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {IfcViewerComponent} from "./components/ifc-viewer/ifc-viewer.component";
     IdentityRegistryComponent,
     ClaimTopicsRegistryComponent,
     TrustedIssuersRegistryComponent,
-    IfcViewerComponent
+    IfcViewerComponent,
+    PanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,7 @@ import {IfcViewerComponent} from "./components/ifc-viewer/ifc-viewer.component";
     MatSnackBarModule
   ],
   providers: [EthereumService, ErrorHandlerService, TrexFactoryService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

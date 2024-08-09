@@ -36,7 +36,7 @@
                   </mat-form-field>
 
                 </div>
-                <button type="submit" mat-raised-button style="align-self: flex-start; margin-left: 5%">View Keys
+                <button type="submit" mat-raised-button>View Keys
                 </button>
 
               </form>
@@ -105,26 +105,35 @@
 
             <mat-divider style="margin: 3% 0"></mat-divider>
 
-            <form>
-              <mat-card-subtitle class="subtitle">Delete Key</mat-card-subtitle>
+            <form [formGroup]="deleteKeyForm" (ngSubmit)="this.removeKey()">
+              <mat-card-subtitle class="subtitle">Remove Key</mat-card-subtitle>
               <div class="center-content">
                 <div style="width: 90%">
                   <mat-form-field>
                     <mat-label>ONCHAINID</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="onchainId">
+                  </mat-form-field>
+                </div>
+                <div style="width: 90%">
+                  <mat-form-field>
+                    <mat-label>Claim Issuer Address</mat-label>
+                    <input matInput formControlName="ciaddress">
                   </mat-form-field>
                 </div>
                 <div style="width: 90%">
                   <mat-form-field>
                     <mat-label>Select</mat-label>
-                    <mat-select>
+                    <mat-select formControlName="keyType">
                       <mat-option *ngFor="let key of keyPurposes" [value]="key">
                         {{ key }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <button type="submit" mat-raised-button>Remove Key</button>
               </div>
+
             </form>
           </div>
         </mat-card-content>
@@ -200,8 +209,7 @@
                       </td>
                     </ng-container>
 
-                    !-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                    <ng-container matColumnDef="expandedDetail">
+                   <ng-container matColumnDef="expandedDetail">
                       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsClaim.length">
                         <div class="example-element-detail"
                              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
@@ -274,26 +282,25 @@
 
             <mat-divider style="margin: 3% 0"></mat-divider>
 
-            <form>
-              <mat-card-subtitle class="subtitle">Delete Key</mat-card-subtitle>
+            <form [formGroup]="this.deleteClaimForm" (ngSubmit)="this.removeClaim()">
+              <mat-card-subtitle class="subtitle">Remove Claim</mat-card-subtitle>
               <div class="center-content">
                 <div style="width: 90%">
                   <mat-form-field>
                     <mat-label>ONCHAINID</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="onchainId">
                   </mat-form-field>
                 </div>
                 <div style="width: 90%">
                   <mat-form-field>
-                    <mat-label>Select</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let key of keyPurposes" [value]="key">
-                        {{ key }}
-                      </mat-option>
-                    </mat-select>
+                    <mat-label>Claim Id</mat-label>
+                    <input matInput formControlName="claimId">
                   </mat-form-field>
                 </div>
+
+                <button type="submit" mat-raised-button>Remove Claim</button>
               </div>
+
             </form>
           </div>
         </mat-card-content>

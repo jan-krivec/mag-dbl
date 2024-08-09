@@ -12,7 +12,7 @@ import identityRegistryJson
   from "../../contracts/TREX/registry/implementation/IdentityRegistry.sol/IdentityRegistry.json";
 import modularComplianceJson
   from "../../contracts/TREX/compliance/modular/ModularCompliance.sol/ModularCompliance.json";
-import {environment} from "../../environments/environment";
+import {environment} from "../../environments/environment" ;
 import {Identity} from "@onchain-id/identity-sdk";
 
 

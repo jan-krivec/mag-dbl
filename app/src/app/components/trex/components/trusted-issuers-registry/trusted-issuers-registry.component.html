@@ -2,7 +2,7 @@
 
   <mat-card fxFlex="20%" class="factory-card">
     <mat-card-header>
-      <mat-card-title>Claim Topics</mat-card-title>
+      <mat-card-title>Trusted Issuers</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
@@ -22,11 +22,11 @@
       <div class="car-tab">
         <mat-card-subtitle class="subtitle">Add Trusted Issuer</mat-card-subtitle>
 
-        <form class="center-content" [formGroup]="this.addTrustedIssuerGroup">
+        <form class="center-content" [formGroup]="this.addTrustedIssuerGroup" (ngSubmit)="this.addTrustedIssuer()">
 
           <div style="width: 90%">
             <mat-form-field fxFlex="100%">
-              <mat-label>User Address</mat-label>
+              <mat-label>Trusted Issuer ONCHAINID</mat-label>
               <input matInput formControlName="address" type="text">
             </mat-form-field>
           </div>
